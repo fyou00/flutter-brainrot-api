@@ -7,19 +7,18 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detail Page'),
-      ),
+      appBar: AppBar(title: const Text('Detail Page')),
       body: SafeArea(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('id: ${brainrots.id}'),
-          Text('Name: ${brainrots.name}'),
-        const SizedBox(
-          height: 20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('id: ${brainrots.id}'),
+            Text('Name: ${brainrots.name}'),
+            const SizedBox(height: 20),
+            const Text('Body: '),
+            Text(brainrots.body),
+          ],
         ),
-        const Text('Body: '),
-        Text(brainrots.body)
-        ],)
       ),
     );
   }

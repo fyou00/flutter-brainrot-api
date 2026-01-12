@@ -21,20 +21,18 @@ class PostCard extends StatelessWidget {
         );
       },
       child: Container(
-        decoration: const BoxDecoration(color: Colors.white),
+        width: double.infinity,
+        color: Colors.grey[200],
+        padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text(posts.id.toString()),
+            // Text(brainrots.id.toString()),
             Text(
               brainrots.name,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Text(brainrots.body),
           ],
         ),

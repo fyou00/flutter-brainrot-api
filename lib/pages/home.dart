@@ -15,8 +15,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Future<List<Brainrots>> fetchPosts() async {
-    final response =
-        await http.get(Uri.parse('https://raw.githubusercontent.com/fyou00/brainrot-api/refs/heads/main/brainrot.json'));
+    final response = await http.get(
+      Uri.parse(
+        'https://raw.githubusercontent.com/fyou00/brainrot-api/refs/heads/main/brainrot.json',
+      ),
+    );
 
     print(response.statusCode);
     print(response.body);
@@ -41,43 +44,42 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Post List'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Post List'), centerTitle: true),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: FutureBuilder<List<Brainrots>>(
-              future: futurePosts,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.separated(
-                      itemBuilder: ((context, index) {
-                        var post = (snapshot.data as List<Brainrots>)[index];
-                        return Column(
-                          children: [
-                            PostCard(
-                              brainrots: Brainrots(
-                                  id: post.id,
-                                  name: post.name,
-                                  body: post.body),
-                            ),
-                            SizedBox(height: 20)
-                          ],
-                        );
-                      }),
-                      separatorBuilder: (context, index) {
-                        return const Divider();
-                      },
-                      itemCount: (snapshot.data as List<Brainrots>).length);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                return const CircularProgressIndicator();
-              }),
+            future: futurePosts,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.separated(
+                  itemBuilder: ((context, index) {
+                    var post = (snapshot.data as List<Brainrots>)[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PostCard(
+                          brainrots: Brainrots(
+                            id: post.id,
+                            name: post.name,
+                            body: post.body,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
+                    );
+                  }),
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                  itemCount: (snapshot.data as List<Brainrots>).length,
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return const CircularProgressIndicator();
+            },
+          ),
         ),
       ),
     );
